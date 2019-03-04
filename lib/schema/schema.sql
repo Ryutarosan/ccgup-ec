@@ -58,6 +58,6 @@ INSERT INTO items (id, name, price, img, status, stock, create_date, update_date
 (3, '黒シャツ', 1000, 'p3.png', 1, 10, now(), now());
 
 INSERT INTO users (id, login_id, password, is_admin, create_date, update_date) VALUES
-(1, 'admin', password('admin'), 1, now(), now())
-, (2, 'user1', password('user1'), 0, now(), now())
-, (3, 'user2', password('user2'), 0, now(), now());
+(1, 'admin', sha1('admin'), 1, now(), now())
+, (2, 'user1', sha1('user1'), 0, now(), now())
+, (3, 'user2', sha1('user2'), 0, now(), now());
