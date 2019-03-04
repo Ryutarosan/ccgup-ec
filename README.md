@@ -44,4 +44,4 @@ $workspace/ccg/syncs/www/dev.lesson-codecamp.jp/config/const.php
 ## 接続確認
 
 `環境準備方法` が終わりましたら、下記にアクセスして接続確認をしましょう。  
-[dev.lesson-codecamp.jp](http://dev.lesson-codecamp.jp)
+[dev.lesson-codecamp.jp:8080](http://dev.lesson-codecamp.jp:8080)
