@@ -52,7 +52,7 @@
 						</tr>
 						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
 							<td>
-								<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+								<form action="<?php echo $_SERVER['SCRIPT_NAME']?>" method="post">
 									<button type="submit" class="btn btn-danger btn-sm">削除</button>
 									<input type="hidden" name="id"
 										value="<?php echo $value['id']; ?>"> <input
@@ -62,7 +62,7 @@
 							<td><?php echo number_format($value['price'])?>円</td>
 							<td>
 								<form id="form_select_amount<?php echo $value['id']; ?>"
-									action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+									action="<?php echo $_SERVER['SCRIPT_NAME']?>" method="post">
 									<select name="amount"
 										onchange="submit_change_amount(<?php echo $value['id']; ?>)">
 <?php $max_count = 10; if ((int)$value['amount'] > $max_count){$max_count = (int)$value['amount'];}; ?>

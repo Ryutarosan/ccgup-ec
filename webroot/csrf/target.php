@@ -90,7 +90,7 @@ body {
 	</ul>
 	<h2>実行結果</h2>
 	<p><?php echo $message; ?></p>
-	<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+	<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 		<input type="hidden" name="token"
 			value="<?php echo $_SESSION['token']; ?>"> value: <input type="text"
 			name="var"> <input type="submit" value="submit">

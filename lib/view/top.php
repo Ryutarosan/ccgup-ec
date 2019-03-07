@@ -35,7 +35,7 @@
 						<div class="col-12 item-price"><?php echo $value['name']; ?>：<?php echo number_format($value['price']); ?>円</div>
 						<div class="col-12 mt-1">
 <?php if ($value['stock'] > 0) { ?>
-							<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+							<form action="<?php echo $_SERVER['SCRIPT_NAME']?>" method="post">
 								<input type="hidden" name="id"
 									value="<?php echo $value['id']; ?>">
 								<button type="submit" class="btn btn-primary cart-btn">カートに入れる</button>
