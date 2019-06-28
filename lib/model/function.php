@@ -55,8 +55,14 @@ function db_select_one(PDO $db, $sql) {
  * @param string $sql
  * @return int
  */
-function db_update(PDO $db, $sql) {
-	return $db->exec($sql);
+function db_update(PDO $db, $sql, $params = array()) {
+	$stmt = $db->prepare($sql);
+	// foreach($params as $i => $value){
+	// 	$stmt->bindValue($i+1, $value,     PDO::PARAM_STR);//文字列	
+	// }
+	
+
+	return $stmt->execute($params);
 }
 
 /**

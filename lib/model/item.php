@@ -17,9 +17,10 @@
 function item_regist($db, $name, $img, $price, $stock, $status) {
 	$sql = <<<EOD
 INSERT INTO items (name, img, price, stock, status, create_date, update_date)
- VALUES ('{$name}', '{$img}', '{$price}', '{$stock}', '{$status}', NOW(), NOW());
+ VALUES (?, ?, ?, ?, ?, NOW(), NOW());
 EOD;
-	return db_update($db, $sql);
+	$params = array($name, $img, $price, $stock, $status);
+	return db_update($db, $sql, $params);
 }
 
 /**
