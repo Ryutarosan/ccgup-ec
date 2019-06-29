@@ -45,15 +45,15 @@
 					</thead>
 					<tbody>
 <?php foreach ( $response['cart_items'] as $key => $value ) {?>
-						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
+						<tr class="<?php echo h((0 === ($key % 2)) ? 'stripe' : '' ); ?>">
 							<td rowspan="2"><img class="w-100"
-								src="<?php echo DIR_IMG . $value['img']; ?>"></td>
-							<td colspan="3"><?php echo $value['name']?></td>
+								src="<?php echo h(DIR_IMG . $value['img']); ?>"></td>
+							<td colspan="3"><?php echo h($value['name'])?></td>
 						</tr>
-						<tr class="<?php echo (0 === ($key % 2)) ? 'stripe' : '' ; ?>">
-							<td><?php echo number_format($value['price'])?>円</td>
-							<td><?php echo number_format($value['amount'])?>個</td>
-							<td><?php echo number_format($value['amount_price'])?>円</td>
+						<tr class="<?php echo h((0 === ($key % 2)) ? 'stripe' : '' ); ?>">
+							<td><?php echo h(number_format($value['price']))?>円</td>
+							<td><?php echo h(number_format($value['amount']))?>個</td>
+							<td><?php echo h(number_format($value['amount_price']))?>円</td>
 						</tr>
 <?php } ?>
 					</tbody>
@@ -63,7 +63,7 @@
 							<td></td>
 							<td colspan="2">
 								<div>
-									<span>合計</span> <span><?php echo number_format($response['total_price']); ?>円</span>
+									<span>合計</span> <span><?php echo h(number_format($response['total_price'])); ?>円</span>
 								</div>
 							</td>
 						</tr>
@@ -76,6 +76,9 @@
 	<!-- /.container -->
 	<script src="./assets/js/jquery/1.12.4/jquery.min.js"></script>
 	<script src="./assets/bootstrap/dist/js/bootstrap.min.js"></script>
-
+	function h($print){
+		$str = htmlspecialchars($print, ENT_QUOTES, 'utf-8');
+		return $str;
+	}
 </body>
 </html>

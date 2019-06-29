@@ -24,7 +24,7 @@
 </head>
 
 <body class="text-center">
-	<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>"
+	<form method="post" action="<?php echo h($_SERVER['SCRIPT_NAME']); ?>"
 		class="form-signin">
 <?php require DIR_VIEW_ELEMENT . 'output_message.php'; ?>
 		<h1 class="h3 mb-3 font-weight-normal">CodeCampSHOP</h1>
@@ -39,5 +39,9 @@
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		<p class="mt-3 mb-3 text-muted">&copy; CodeCamp</p>
 	</form>
+	function h($print){
+		$str = htmlspecialchars($print, ENT_QUOTES, 'utf-8');
+		return $str;
+	}
 </body>
 </html>
