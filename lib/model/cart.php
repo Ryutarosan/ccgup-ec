@@ -92,7 +92,7 @@ UPDATE carts
  SET amount = {$amount}, update_date = NOW()
  WHERE id = {$id} AND user_id = {$user_id}
 EOD;
-	return db_update($db, $sql);
+	return db_update($db, $sql, $params = array());
 }
 
 /**
@@ -106,7 +106,7 @@ function cart_delete($db, $id, $user_id) {
 DELETE FROM carts
  WHERE id = {$id} AND user_id = {$user_id}
 EOD;
-	return db_update($db, $sql);
+	return db_update($db, $sql, $params = array());
 }
 
 /**
@@ -116,5 +116,5 @@ EOD;
  */
 function cart_clear($db, $user_id) {
 	$sql = 'DELETE FROM carts WHERE user_id = ' . $user_id;
-	return db_update($db, $sql);
+	return db_update($db, $sql, $params = array());
 }
