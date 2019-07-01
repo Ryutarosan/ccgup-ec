@@ -15,11 +15,14 @@
  * @return number
  */
 function item_regist($db, $name, $img, $price, $stock, $status) {
+//1.sql文をプレースホルダー を使用する形に書き直す
 	$sql = <<<EOD
 INSERT INTO items (name, img, price, stock, status, create_date, update_date)
  VALUES (?, ?, ?, ?, ?, NOW(), NOW());
 EOD;
+//2.$params配列にプレースホルダーにバインドする変数を詰め込む
 	$params = array($name, $img, $price, $stock, $status);
+	//3.db_updateの際に$paramsを第三引数として渡す
 	return db_update($db, $sql, $params);
 }
 
@@ -34,8 +37,9 @@ function item_delete($db, $id) {
 	if (!empty($row)) {
 		@unlink(DIR_IMG_FULL . $row['img']);
 	}
-	$sql = 'DELETE FROM items WHERE id = ' . $id;
-	return db_update($db, $sql);
+	$sql = 'DELETE FROM items WHERE id = ?';
+	$params = array($id);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -49,10 +53,11 @@ function item_list($db, $is_active_only = true) {
 EOD;
 
 	if ($is_active_only) {
-		$sql .= " WHERE status = 1";
+		$sql .= " WHERE status = ?";
+		$params = array($status);
 	}
 
-	return db_select($db, $sql);
+	return db_select($db, $sql, $params);
 }
 
 /**
@@ -64,10 +69,10 @@ function item_get($db, $id) {
 	$sql = <<<EOD
  SELECT id, name, price, img, stock, status, create_date, update_date
  FROM items
- WHERE id = {$id}
+ WHERE id = {?}
 EOD;
-
-	return db_select_one($db, $sql);
+	$params = array($id);
+	return db_select_one($db, $sql, $params);
 }
 
 /**
@@ -79,10 +84,11 @@ EOD;
 function item_update_stock($db, $id, $stock) {
 	$sql = <<<EOD
  UPDATE items
- SET stock = {$stock}, update_date = NOW()
- WHERE id = {$id}
+ SET stock = {?}, update_date = NOW()
+ WHERE id = {?}
 EOD;
-	return db_update($db, $sql);
+	$params = array($stock, $id);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -94,10 +100,11 @@ EOD;
 function item_update_saled($db, $id, $amount) {
 	$sql = <<<EOD
  UPDATE items
- SET stock = stock - {$amount}, update_date = NOW()
- WHERE id = {$id}
+ SET stock = stock - {?}, update_date = NOW()
+ WHERE id = {?}
 EOD;
-	return db_update($db, $sql);
+	$params = array($stock, $id);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -109,10 +116,11 @@ EOD;
 function item_update_status($db, $id, $status) {
 	$sql = <<<EOD
  UPDATE items
- SET status = {$status}, update_date = NOW()
- WHERE id = {$id}
+ SET status = {?}, update_date = NOW()
+ WHERE id = {?}
 EOD;
-	return db_update($db, $sql);
+	$params = array($status, $id);
+	return db_update($db, $sql, $params);
 }
 
 /**
