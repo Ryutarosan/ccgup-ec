@@ -18,7 +18,9 @@
 	<div class="col-12 alert alert-danger" role="alert">
 <?php
 	if (is_array($response['error_msg'])) {
-		echo h(implode('<br>', $response['error_msg']));
+		foreach ($response['error_msg'] as $error){ ?>
+		<p><?php echo h($error); ?></p>
+		<?php } 	
 	} else {
 		echo h($response['error_msg']);
 	}
