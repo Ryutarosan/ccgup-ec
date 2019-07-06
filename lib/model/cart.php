@@ -16,9 +16,8 @@ function cart_is_exists_item($db, $user_id, $item_id) {
 SELECT item_id, amount FROM carts
  WHERE user_id = {?} AND item_id = {?}
 EOD;
-	$params = array($yser_id, $item_id);
+	$params = array($user_id, $item_id);
 	$cart = db_select($db, $sql);
-	return empty($cart, $params) === false;
 }
 
 /**
@@ -120,7 +119,7 @@ EOD;
  * @return int
  */
 function cart_clear($db, $user_id) {
-	$sql = 'DELETE FROM carts WHERE user_id = ' . ?;
+	$sql = 'DELETE FROM carts WHERE user_id = ' . $user_id;
 	$params = array($user_id);
 	return db_update($db, $sql, $params = array(), $params);
 }

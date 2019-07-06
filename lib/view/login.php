@@ -39,9 +39,5 @@
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		<p class="mt-3 mb-3 text-muted">&copy; CodeCamp</p>
 	</form>
-	function h($print){
-		$str = htmlspecialchars($print, ENT_QUOTES, 'utf-8');
-		return $str;
-	}
 </body>
 </html>

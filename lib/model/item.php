@@ -54,7 +54,7 @@ EOD;
 
 	if ($is_active_only) {
 		$sql .= " WHERE status = ?";
-		$params = array($status);
+		$params = array(status);
 	}
 
 	return db_select($db, $sql, $params);

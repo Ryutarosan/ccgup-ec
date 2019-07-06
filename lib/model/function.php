@@ -27,12 +27,16 @@ function db_connect() {
  * @param string $sql
  * @return array
  */
-function db_select(PDO $db, $sql) {
-	$result = $db->query($sql);
-	if ($result->rowCount() === 0) {
-		return array();
-	}
-	$rows = $result->fetchAll(PDO::FETCH_ASSOC);
+function db_select($db, $sql, $params = array()) {
+	//$stmtに$dbが持っているprepare機能で作られた結果（リモコン）を代入する
+	$stmt = $db->prepare($sql);
+	$stmt->execute($params); 
+	//$result = $db->query($sql);
+	
+	// if ($stmt->rowCount() === 0) {
+	// 	return array();
+	// }
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
 
