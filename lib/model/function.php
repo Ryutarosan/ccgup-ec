@@ -71,7 +71,7 @@ function db_update(PDO $db, $sql, $params = array()) {
 	// 	$stmt->bindValue($i+1, $value,     PDO::PARAM_STR);//文字列	
 	// }
 	
-
+	
 	return $stmt->execute($params);
 }
 
