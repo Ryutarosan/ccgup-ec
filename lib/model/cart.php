@@ -14,11 +14,11 @@
 function cart_is_exists_item($db, $user_id, $item_id) {
 	$sql = <<<EOD
 SELECT item_id, amount FROM carts
- WHERE user_id = {$user_id} AND item_id = {$item_id}
+ WHERE user_id = ? AND item_id = ?
 EOD;
-
-	$cart = db_select($db, $sql);
-	return empty($cart) === false;
+	$params = array($user_id, $item_id);
+	$cart = db_select($db, $sql, $params);
+	return empty($cart) === FALSE;
 }
 
 /**
@@ -31,9 +31,10 @@ function cart_total_price($db, $user_id) {
 SELECT sum(price * amount) as total_price
  FROM carts JOIN items
  ON carts.item_id = items.id
- WHERE items.status = 1 AND user_id = {$user_id}
+ WHERE items.status = ? AND user_id = ?
 EOD;
-	$row = db_select_one($db, $sql);
+	$params = array(1, $user_id);
+	$row = db_select_one($db, $sql, $params);
 	if (empty($row)) {
 		return null;
 	}
@@ -50,9 +51,10 @@ function cart_list($db, $user_id) {
  SELECT carts.id, item_id, name, price, img, amount, (price * amount) as amount_price
  FROM carts JOIN items
  ON carts.item_id = items.id
- WHERE items.status = 1 AND user_id = {$user_id}
+ WHERE items.status = ? AND user_id = ?
 EOD;
-	return db_select($db, $sql);
+	$params = array(1, $user_id);
+	return db_select($db, $sql, $params);
 }
 
 /**
@@ -68,15 +70,17 @@ function cart_regist($db, $user_id, $item_id) {
 		$sql = <<<EOD
 UPDATE carts
  SET amount = amount + 1 , update_date = NOW()
- WHERE user_id = {$user_id} AND item_id = {$item_id}
+ WHERE user_id = ? AND item_id = ?
 EOD;
+		$params = array($user_id, $item_id);
 	} else {
 		$sql = <<<EOD
 INSERT INTO carts (user_id, item_id, amount, create_date, update_date)
-VALUES ({$user_id}, {$item_id}, 1, NOW(), NOW())
+VALUES (?, ?, ?, NOW(), NOW())
 EOD;
+		$params = array($user_id, $item_id, 1);
 	}
-	return db_update($db, $sql);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -89,10 +93,11 @@ EOD;
 function cart_update($db, $id, $user_id, $amount) {
 	$sql = <<<EOD
 UPDATE carts
- SET amount = {$amount}, update_date = NOW()
- WHERE id = {$id} AND user_id = {$user_id}
+ SET amount = ?, update_date = NOW()
+ WHERE id = ? AND user_id = ?
 EOD;
-	return db_update($db, $sql);
+	$params = array($amount, $id, $user_id);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -104,9 +109,10 @@ EOD;
 function cart_delete($db, $id, $user_id) {
 	$sql = <<<EOD
 DELETE FROM carts
- WHERE id = {$id} AND user_id = {$user_id}
+ WHERE id = ? AND user_id = ?
 EOD;
-	return db_update($db, $sql);
+	$params = array($id, $user_id);
+	return db_update($db, $sql, $params);
 }
 
 /**
@@ -115,6 +121,7 @@ EOD;
  * @return int
  */
 function cart_clear($db, $user_id) {
-	$sql = 'DELETE FROM carts WHERE user_id = ' . $user_id;
-	return db_update($db, $sql);
+	$sql = 'DELETE FROM carts WHERE user_id = ?';
+	$params = array($user_id);
+	return db_update($db, $sql, $params);
 }

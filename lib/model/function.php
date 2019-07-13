@@ -13,6 +13,10 @@ function db_connect() {
 
 	try {
 		$db = new PDO($dsn, DB_USER, DB_PASS);
+		//エラーが発生したら例外処理を行う
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		//プリペアドステートメントのエミュレーションは行わない
+		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		$db->exec("SET NAMES 'UTF8'");
 	} catch (PDOException $e) {
 		die('db error: ' . $e->getMessage());
@@ -27,12 +31,18 @@ function db_connect() {
  * @param string $sql
  * @return array
  */
-function db_select(PDO $db, $sql) {
-	$result = $db->query($sql);
-	if ($result->rowCount() === 0) {
-		return array();
-	}
-	$rows = $result->fetchAll(PDO::FETCH_ASSOC);
+function db_select($db, $sql, $params = array()) {
+	//$stmtに$dbが持っているprepare機能で作られた結果（リモコン）を代入する
+	$stmt = $db->prepare($sql);
+	//リモコン(PDOStatement)を実行する プレースホルダーにした部分に$paramsを当てはめる(バインドする)
+	$stmt->execute($params); 
+	//$result = $db->query($sql);
+	
+	// if ($stmt->rowCount() === 0) {
+	// 	return array();
+	// }
+	//リモコンで実行した結果を$rowsに代入する
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
 
@@ -41,8 +51,8 @@ function db_select(PDO $db, $sql) {
  * @param string $sql
  * @return NULL|mixed
  */
-function db_select_one(PDO $db, $sql) {
-	$rows = db_select($db, $sql);
+function db_select_one(PDO $db, $sql, $params = array()) {
+	$rows = db_select($db, $sql, $params);
 	if (empty($rows)) {
 		return null;
 	}
@@ -55,8 +65,14 @@ function db_select_one(PDO $db, $sql) {
  * @param string $sql
  * @return int
  */
-function db_update(PDO $db, $sql) {
-	return $db->exec($sql);
+function db_update(PDO $db, $sql, $params = array()) {
+	$stmt = $db->prepare($sql);
+	// foreach($params as $i => $value){
+	// 	$stmt->bindValue($i+1, $value,     PDO::PARAM_STR);//文字列	
+	// }
+	
+	
+	return $stmt->execute($params);
 }
 
 /**

@@ -21,7 +21,6 @@ require_once DIR_MODEL . 'user.php';
 	__update($db, $response);
 
 	$response['items'] = item_list($db, false);
-
 	require_once DIR_VIEW . 'admin.php';
 }
 
@@ -152,7 +151,6 @@ function __update_status($db, &$response) {
 		$response['error_msg'][] = 'ステータスの指定が不適切です。';
 		return;
 	}
-
 	if (item_update_status($db, $_POST['id'], $_POST['status'])) {
 		$response['result_msg'] = 'ステータスを更新しました。';
 		return;
