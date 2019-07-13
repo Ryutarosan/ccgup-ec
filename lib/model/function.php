@@ -143,3 +143,7 @@ function check_logined($db) {
 		exit;
 	}
 }
+function h($echo){
+	$str = htmlspecialchars($echo, ENT_QUOTES, 'utf-8');
+	return $str;
+}
