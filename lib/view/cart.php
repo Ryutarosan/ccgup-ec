@@ -111,9 +111,5 @@
 			document.getElementById('form_select_amount' + id).submit();
 		}
 	</script>
-	function h($print){
-		$str = htmlspecialchars($print, ENT_QUOTES, 'utf-8');
-		return $str;
-	}
 </body>
 </html>

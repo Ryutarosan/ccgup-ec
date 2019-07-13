@@ -57,7 +57,6 @@ function __login($db, &$response) {
 		$response['error_msg'] = 'IDまたはパスワードが違います。';
 		return;
 	}
-
 	$_SESSION['user'] = $user;
 
 	if (empty($user['is_admin'])) {

@@ -51,10 +51,10 @@ function item_list($db, $is_active_only = true) {
  SELECT id, name, price, img, stock, status, create_date, update_date
  FROM items
 EOD;
-
+	$params = array();
 	if ($is_active_only) {
 		$sql .= " WHERE status = ?";
-		$params = array(status);
+		$params = array(1);
 	}
 
 	return db_select($db, $sql, $params);
@@ -69,7 +69,7 @@ function item_get($db, $id) {
 	$sql = <<<EOD
  SELECT id, name, price, img, stock, status, create_date, update_date
  FROM items
- WHERE id = {?}
+ WHERE id = ?
 EOD;
 	$params = array($id);
 	return db_select_one($db, $sql, $params);
@@ -84,8 +84,8 @@ EOD;
 function item_update_stock($db, $id, $stock) {
 	$sql = <<<EOD
  UPDATE items
- SET stock = {?}, update_date = NOW()
- WHERE id = {?}
+ SET stock = ?, update_date = NOW()
+ WHERE id = ?
 EOD;
 	$params = array($stock, $id);
 	return db_update($db, $sql, $params);
@@ -100,10 +100,10 @@ EOD;
 function item_update_saled($db, $id, $amount) {
 	$sql = <<<EOD
  UPDATE items
- SET stock = stock - {?}, update_date = NOW()
- WHERE id = {?}
+ SET stock = stock - ?, update_date = NOW()
+ WHERE id = ?
 EOD;
-	$params = array($stock, $id);
+	$params = array($amount, $id);
 	return db_update($db, $sql, $params);
 }
 
@@ -116,8 +116,8 @@ EOD;
 function item_update_status($db, $id, $status) {
 	$sql = <<<EOD
  UPDATE items
- SET status = {?}, update_date = NOW()
- WHERE id = {?}
+ SET status = ?, update_date = NOW()
+ WHERE id = ?
 EOD;
 	$params = array($status, $id);
 	return db_update($db, $sql, $params);
