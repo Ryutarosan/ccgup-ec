@@ -9,7 +9,8 @@ require_once '../lib/config/const.php';
 require_once DIR_MODEL . 'function.php';
 require_once DIR_MODEL . 'cart.php';
 require_once DIR_MODEL . 'item.php';
-
+require_once DIR_MODEL . 'order.php';
+require_once DIR_MODEL . 'order_detail.php';
 {
 	session_start();
 
@@ -39,9 +40,11 @@ function __finish($db, &$response) {
 	}
 
 	$response['total_price'] = cart_total_price($db, $_SESSION['user']['id']);
-
+	add_order($db, $_SESSION['user']['id']);
+	$order_id = $db->lastInsertId();
 	foreach ($response['cart_items']as $item) {
 		item_update_saled($db, $item['item_id'], $item['amount']);
+		add_order_detail($db, $order_id, $item['item_id'], $item['amount']);
 	}
 	cart_clear($db, $_SESSION['user']['id']);
 

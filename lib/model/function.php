@@ -147,3 +147,17 @@ function h($echo){
 	$str = htmlspecialchars($echo, ENT_QUOTES, 'utf-8');
 	return $str;
 }
+function get_post_data($key) {
+	$str = '';
+	if (isset($_POST[$key]) === TRUE) {
+	  $str = $_POST[$key];
+	}
+	return $str;
+}
+function get_get_data($key) {
+	$str = '';
+	if (isset($_GET[$key]) === TRUE) {
+	  $str = $_GET[$key];
+	}
+	return $str;
+}
