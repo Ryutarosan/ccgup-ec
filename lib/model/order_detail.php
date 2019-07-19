@@ -2,8 +2,6 @@
 function order_detail_list($db, $order_id){
     $sql = 'SELECT 
     items.name,
-    orders.order_id,
-    orders.order_datetime,
     items.price,
     order_details.quantity
     FROM
