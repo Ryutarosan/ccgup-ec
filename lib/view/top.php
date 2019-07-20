@@ -14,7 +14,7 @@
 <link href="./assets/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/style.css">
-
+<link rel="stylesheet" href="./assets/css/top.css">
 </head>
 <body>
 <?php require DIR_VIEW_ELEMENT . 'output_navber.php'; ?>
@@ -25,6 +25,14 @@
 			</div>
 		</div>
 <?php require DIR_VIEW_ELEMENT . 'output_message.php'; ?>
+		<form class="order_change">
+			<select name="order">
+				<option value="recent">最新商品</option>
+				<option value="price_asc">価格の安い順</option>
+				<option value="price_desc">価格の高い順</option>
+			</select>
+			<input type="submit" value="並び替え">
+		</form>
 		<div class="row">
 <?php foreach ($response['items'] as $value)  { ?>
 			<div class="card col-12 col-md-4 p-0 m-0 shadow-sm">

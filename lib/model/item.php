@@ -46,7 +46,7 @@ function item_delete($db, $id) {
  * @param PDO $db
  * @return array
  */
-function item_list($db, $is_active_only = true) {
+function item_list($db, $is_active_only = true, $order = '') {
 	$sql = <<<EOD
  SELECT id, name, price, img, stock, status, create_date, update_date
  FROM items
@@ -56,7 +56,15 @@ EOD;
 		$sql .= " WHERE status = ?";
 		$params = array(1);
 	}
-
+	if ($order === 'recent'){
+		$sql .= ' ORDER BY items.create_date DESC';
+	}
+	if ($order === 'price_asc'){
+		$sql .= ' ORDER BY items.price ASC';
+	}
+	if ($order === 'price_desc'){
+		$sql .= ' ORDER BY items.price DESC';
+	}
 	return db_select($db, $sql, $params);
 }
 

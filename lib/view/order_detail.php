@@ -32,9 +32,11 @@
 				<div class="col-xs-12 col-md-10 offset-md-1">
 					<h2>購入明細</h2>
                 </div>
+                
                 <p>注文番号:<?php print h($response['order']['order_id'])?></p>
                 <p>購入日時:<?php print h($response['order']['order_datetime'])?></p>
                 <p>合計金額:<?php print h($response['order']['total'])?></p>
+                
                 <?php if ( !empty($response['order_details'])) {?>
 				<div class="col-xs-12 col-md-10 offset-md-1 cart-list">
 					<div class="row">

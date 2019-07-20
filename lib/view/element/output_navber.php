@@ -1,7 +1,7 @@
 <?php
 /**
  * @license CC BY-NC-SA 4.0
- * @license https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja
+ * @license https://creativecommons.org/licenses/by-nc-sa/4.0/deed.jao
  * @copyright CodeCamp https://codecamp.jp
  */
 ?>

@@ -17,7 +17,8 @@ require_once DIR_MODEL . 'item.php';
 	$response = array();
 
 	__regist($db, $response);
-	$response['items'] = item_list($db);
+	$order = get_get_data('order', 'recent');
+	$response['items'] = item_list($db, true, $order);
 
 	require_once DIR_VIEW  . 'top.php';
 }

@@ -154,10 +154,9 @@ function get_post_data($key) {
 	}
 	return $str;
 }
-function get_get_data($key) {
-	$str = '';
+function get_get_data($key, $default = '') {
 	if (isset($_GET[$key]) === TRUE) {
-	  $str = $_GET[$key];
+	  return $_GET[$key];
 	}
-	return $str;
+	return $default;
 }
