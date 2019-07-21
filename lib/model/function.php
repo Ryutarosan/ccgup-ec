@@ -154,6 +154,7 @@ function get_post_data($key) {
 	}
 	return $str;
 }
+
 function get_get_data($key) {
 	$str = '';
 	if (isset($_GET[$key]) === TRUE) {
