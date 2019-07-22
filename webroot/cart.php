@@ -25,7 +25,7 @@ require_once DIR_MODEL . 'cart.php';
 	} else {
 		$response['total_price'] = cart_total_price($db, $_SESSION['user']['id']);
 	}
-
+	make_token();
 	require_once DIR_VIEW . 'cart.php';
 }
 
@@ -37,7 +37,9 @@ function __update($db, &$response) {
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 		return;
 	}
-
+	if (is_valid_token() === FALSE){
+		return;
+	}
 	if (empty($_POST['action'])) {
 		$response['error_msg'] = 'リクエストが不適切です。';
 		return;

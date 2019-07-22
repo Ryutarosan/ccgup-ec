@@ -44,6 +44,7 @@
 						<div class="col-12 mt-1">
 <?php if ($value['stock'] > 0) { ?>
 							<form action="<?php echo h($_SERVER['SCRIPT_NAME'])?>" method="post">
+								<input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
 								<input type="hidden" name="id"
 									value="<?php echo h($value['id']); ?>">
 								<button type="submit" class="btn btn-primary cart-btn">カートに入れる</button>

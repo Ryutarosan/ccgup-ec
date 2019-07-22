@@ -20,7 +20,7 @@ require_once DIR_MODEL . 'order_detail.php';
 	check_logined($db);
 
 	__finish($db, $response);
-
+	make_token();
 	require_once DIR_VIEW . 'finish.php';
 }
 
@@ -30,6 +30,10 @@ require_once DIR_MODEL . 'order_detail.php';
  */
 function __finish($db, &$response) {
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+		$response['error_msg'] = 'リクエストが不適切です。';
+		return;
+	}
+	if (is_valid_token() === FALSE){
 		$response['error_msg'] = 'リクエストが不適切です。';
 		return;
 	}

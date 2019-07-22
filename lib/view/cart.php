@@ -53,6 +53,7 @@
 						<tr class="<?php echo h((0 === ($key % 2)) ? 'stripe' : '' ); ?>">
 							<td>
 								<form action="<?php echo h($_SERVER['SCRIPT_NAME'])?>" method="post">
+									<input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
 									<button type="submit" class="btn btn-danger btn-sm">削除</button>
 									<input type="hidden" name="id"
 										value="<?php echo h($value['id']); ?>"> <input
@@ -63,6 +64,7 @@
 							<td>
 								<form id="form_select_amount<?php echo h($value['id']); ?>"
 									action="<?php echo h($_SERVER['SCRIPT_NAME'])?>" method="post">
+									<input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
 									<select name="amount"
 										onchange="submit_change_amount(<?php echo h($value['id']); ?>)">
 <?php $max_count = 10; if ((int)$value['amount'] > $max_count){$max_count = (int)$value['amount'];}; ?>
@@ -92,6 +94,7 @@
 							<td colspan="4">
 								<div>
 									<form action="./finish.php" method="post">
+										<input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
 										<button type="submit" class="btn btn-warning btn-lg btn-block">購入する</button>
 									</form>
 								</div>

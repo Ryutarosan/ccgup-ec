@@ -21,6 +21,7 @@ require_once DIR_MODEL . 'user.php';
 	__update($db, $response);
 
 	$response['items'] = item_list($db, false);
+	make_token();
 	require_once DIR_VIEW . 'admin.php';
 }
 
@@ -33,7 +34,9 @@ function __update($db, &$response) {
 	if ($_SERVER['REQUEST_METHOD'] !== "POST") {
 		return;
 	}
-
+	if (is_valid_token() === FALSE){
+		return;
+	}
 	switch ($_POST['action']) {
 		case 'regist' :
 			__regist($db, $response);

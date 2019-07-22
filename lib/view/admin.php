@@ -32,6 +32,7 @@
 					<div class="my-4">
 						<h2>商品の登録</h2>
 						<form method="post" enctype="multipart/form-data">
+							<input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
 							<input type="hidden" name="action" value="regist">
 							<div class="form-row">
 								<div class="form-group col-md-6 row">
@@ -109,6 +110,7 @@
 									<td><?php echo h(number_format($item['price']))?>円</td>
 									<td>
 										<form method="post">
+											<input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
 											<input type="hidden" name="id"
 												value="<?php echo h($item['id']); ?>"> <input
 												type="hidden" name="action" value="update_status">
@@ -126,6 +128,7 @@
 									class="<?php echo h((0 === ($key % 2)) ? 'stripe' : '' ); ?> <?php echo h((1 !== $item['status']) ? 'disable' : '' ); ?>">
 									<td colspan="2">
 										<form method="post" class="form-inline">
+											<input type="hidden" name="token" value="<?php echo h($_SESSION['token']); ?>">
 											<input type="hidden" name="id"
 												value="<?php echo h($item['id']); ?>"> <input
 												type="hidden" name="action" value="update_stock">

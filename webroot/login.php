@@ -18,6 +18,7 @@ require_once DIR_MODEL . 'user.php';
 	__check_logined($db);
 	__login($db, $response);
 
+	make_token();
 	require_once DIR_VIEW  . 'login.php';
 }
 
@@ -49,6 +50,9 @@ function __check_logined($db) {
  */
 function __login($db, &$response) {
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+		return;
+	}
+	if (is_valid_token() === FALSE){
 		return;
 	}
 

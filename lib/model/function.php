@@ -160,3 +160,18 @@ function get_get_data($key, $default = '') {
 	}
 	return $default;
 }
+function make_token() {
+	$_SESSION['token'] = sha1(uniqid(mt_rand(), true));
+}
+//正しいかどうか
+function is_valid_token() {
+	if (empty($_POST['token'])) {
+		return false;
+	}
+
+	if (empty($_SESSION['token'])) {
+		return false;
+	}
+	//
+	return $_SESSION['token'] === $_POST['token'];
+}

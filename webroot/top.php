@@ -19,7 +19,7 @@ require_once DIR_MODEL . 'item.php';
 	__regist($db, $response);
 	$order = get_get_data('order', 'recent');
 	$response['items'] = item_list($db, true, $order);
-
+	make_token();
 	require_once DIR_VIEW  . 'top.php';
 }
 
@@ -31,7 +31,9 @@ function __regist($db, &$response) {
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 		return;
 	}
-
+	if (is_valid_token() === FALSE){
+		return;
+	}
 	check_logined($db);
 
 	if (empty($_POST['id']) === TRUE) {
